@@ -1,0 +1,15 @@
+.filter__div Label{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 1rem;
+}
+
+.filter__heading {
+    text-decoration: underline;
+}
+
+.filter__input {
+    width: 75%;
+}
