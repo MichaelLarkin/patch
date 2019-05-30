@@ -6,11 +6,47 @@ import Backdrop from './components/Backdrop/Backdrop';
 import Calendar from './components/Calendar/Calendar';
 
 class App extends Component {
-    state = {
-        sideDrawerOpen: false
-    };
 
-    drawerToggleClickHandler = () => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sideDrawerOpen: false,
+            summary: [],
+            details: [],
+            isLoaded: false
+        };
+    }
+
+    componentDidMount() {
+
+        const status = response => {
+            if (response.status >= 200 && response.status < 300) {
+                return Promise.resolve(response) }
+            return Promise.reject(new Error(response.statusText))
+        };
+
+        const json = response => response.json();
+
+        fetch("http://localhost:3000/summary")
+            .then ( status )
+            .then ( json )
+            .then( data => {
+               console.log("Request succeeded: Summary JSON response received.", data)
+               this.setState( { summary: data } );
+            })
+            .catch( error => { console.log("Summary request failed.", error)});
+
+        fetch("http://localhost:3000/detail")
+            .then ( status )
+            .then ( json )
+            .then( data => {
+                console.log("Request succeeded: Detail JSON response received.", data)
+            })
+            .catch( error => { console.log("Detail request failed.", error)})
+
+    }
+
+drawerToggleClickHandler = () => {
         this.setState((prevState) => {
             return {sideDrawerOpen: !prevState.sideDrawerOpen};
         });

@@ -1,10 +1,7 @@
 import React from "react";
 import dateFns from "date-fns";
 
-import deploys from "../DeployCount/DeployCount";
-
 import './Calendar.css';
-import Col from "reactstrap/es/Col";
 import Row from "reactstrap/es/Col";
 import Container from "react-bootstrap/es/Container";
 
@@ -87,7 +84,7 @@ class Calendar extends React.Component {
                             <Row>T:12345</Row>
                             <Row>D:88888</Row>
                         </Container>
-                       <deploys />
+
                     </div>
                 );
                 day = dateFns.addDays(day, 1);
