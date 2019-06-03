@@ -5,6 +5,7 @@ import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop';
 import Calendar from './components/Calendar/Calendar';
 
+
 class App extends Component {
 
     constructor(props) {
@@ -31,8 +32,8 @@ class App extends Component {
             .then ( status )
             .then ( json )
             .then( data => {
-               console.log("Request succeeded: Summary JSON response received.", data)
-               this.setState( { summary: data } );
+               /* console.log("Request succeeded: Summary JSON response received.", data) */
+               this.setState( { summary: data });
             })
             .catch( error => { console.log("Summary request failed.", error)});
 
@@ -40,13 +41,13 @@ class App extends Component {
             .then ( status )
             .then ( json )
             .then( data => {
-                console.log("Request succeeded: Detail JSON response received.", data)
+                /* console.log("Request succeeded: Detail JSON response received.", data) */
+                this.setState( { detail: data } );
             })
             .catch( error => { console.log("Detail request failed.", error)})
+   }
 
-    }
-
-drawerToggleClickHandler = () => {
+    drawerToggleClickHandler = () => {
         this.setState((prevState) => {
             return {sideDrawerOpen: !prevState.sideDrawerOpen};
         });
@@ -55,6 +56,7 @@ drawerToggleClickHandler = () => {
     backdropClickHandler = () => {
         this.setState({sideDrawerOpen: false});
     };
+
     render() {
 
         let backdrop;
@@ -71,7 +73,7 @@ drawerToggleClickHandler = () => {
                     {backdrop}
                     <main style={{marginTop: '64px'}}>
                         <SideDrawer show={this.state.sideDrawerOpen} />
-                        <Calendar />
+                        <Calendar data={this.state.summary} />
                     </main>
                 </div>
             </div>

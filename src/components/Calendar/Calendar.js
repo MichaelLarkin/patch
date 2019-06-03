@@ -6,10 +6,14 @@ import Row from "reactstrap/es/Col";
 import Container from "react-bootstrap/es/Container";
 
 class Calendar extends React.Component {
-    state = {
-        currentMonth: new Date(),
-        selectedDate: new Date()
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentMonth: new Date(),
+            selectedDate: new Date()
+        };
+    }
 
     renderHeader() {
         const dateFormat = "MMMM YYYY";
@@ -49,7 +53,7 @@ class Calendar extends React.Component {
     }
 
     renderCells() {
-        const { currentMonth, selectedDate } = this.state;
+        const {currentMonth, selectedDate} = this.state;
         const monthStart = dateFns.startOfMonth(currentMonth);
         const monthEnd = dateFns.endOfMonth(monthStart);
         const startDate = dateFns.startOfWeek(monthStart);
@@ -61,6 +65,18 @@ class Calendar extends React.Component {
         let days = [];
         let day = startDate;
         let formattedDate = "";
+
+
+
+        let thePropsData  = this.props.data.summary;
+        console.log(thePropsData);
+        console.log(Array.isArray(thePropsData));
+
+        if  (!thePropsData) {
+            return <div>
+                <h1>Awaiting Arrival of Asynchronous Data...</h1>
+            </div>
+        }
 
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
@@ -79,10 +95,10 @@ class Calendar extends React.Component {
                         <div className="number">{formattedDate}</div>
                         <div className="bg">{formattedDate}</div>
                         <Container>
-                            <Row>P:88</Row>
-                            <Row>Q:99</Row>
-                            <Row>T:12345</Row>
-                            <Row>D:88888</Row>
+                            <Row>P:{thePropsData[0].prod}</Row>
+                            <Row>Q:{thePropsData[0].qa}</Row>
+                            <Row>T:{thePropsData[0].test}</Row>
+                            <Row>D:{thePropsData[0].dev}</Row>
                         </Container>
 
                     </div>
