@@ -5,6 +5,7 @@ import './Calendar.css';
 import Row from "reactstrap/es/Col";
 import Container from "react-bootstrap/es/Container";
 
+
 class Calendar extends React.Component {
 
     constructor(props) {
@@ -52,6 +53,7 @@ class Calendar extends React.Component {
         return <div className="days row">{days}</div>;
     }
 
+
     renderCells() {
         const {currentMonth, selectedDate} = this.state;
         const monthStart = dateFns.startOfMonth(currentMonth);
@@ -69,16 +71,30 @@ class Calendar extends React.Component {
 
 
         let thePropsData  = this.props.data.summary;
-        console.log(thePropsData);
-        console.log(Array.isArray(thePropsData));
 
         if  (!thePropsData) {
+            console.log("thePropsData = ", thePropsData);
             return <div>
                 <h1>Awaiting Arrival of Asynchronous Data...</h1>
             </div>
         }
 
+        console.log(thePropsData);
+        console.log(Array.isArray(thePropsData));
+
+        let myDate = "";
+        myDate = dateFns.format(day, "MM/DD/YYYY");
+        console.log(myDate);
+
+        let myIndex = ""
+        myIndex = thePropsData.findIndex(p => p.date==="5/26/2019");
+        console.log(myIndex);
+
+
+
         while (day <= endDate) {
+            console.log (day);
+
             for (let i = 0; i < 7; i++) {
                 formattedDate = dateFns.format(day, dateFormat);
                 const cloneDay = day;
@@ -95,15 +111,18 @@ class Calendar extends React.Component {
                         <div className="number">{formattedDate}</div>
                         <div className="bg">{formattedDate}</div>
                         <Container>
-                            <Row>P:{thePropsData[0].prod}</Row>
-                            <Row>Q:{thePropsData[0].qa}</Row>
-                            <Row>T:{thePropsData[0].test}</Row>
-                            <Row>D:{thePropsData[0].dev}</Row>
+                            <Row>P:{thePropsData[myIndex].prod}</Row>
+                            <Row>U:{thePropsData[myIndex].uat}</Row>
+                            <Row>Q:{thePropsData[myIndex].qa}</Row>
+                            <Row>T:{thePropsData[myIndex].test}</Row>
+                            <Row>D:{thePropsData[myIndex].dev}</Row>
                         </Container>
 
                     </div>
                 );
                 day = dateFns.addDays(day, 1);
+                myIndex = myIndex+ 1;
+                console.log(myIndex);
             }
             rows.push(
                 <div className="row" key={day}>
