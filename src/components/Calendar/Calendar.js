@@ -68,12 +68,9 @@ class Calendar extends React.Component {
         let day = startDate;
         let formattedDate = "";
 
-
-
         let thePropsData  = this.props.data.summary;
 
         if  (!thePropsData) {
-            console.log("thePropsData = ", thePropsData);
             return <div>
                 <h1>Awaiting Arrival of Asynchronous Data...</h1>
             </div>
@@ -89,8 +86,6 @@ class Calendar extends React.Component {
         let myIndex = ""
         myIndex = thePropsData.findIndex(p => p.date==="5/26/2019");
         console.log(myIndex);
-
-
 
         while (day <= endDate) {
             console.log (day);
