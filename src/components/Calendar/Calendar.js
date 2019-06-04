@@ -84,7 +84,7 @@ class Calendar extends React.Component {
         console.log(myDate);
 
         let myIndex = ""
-        myIndex = thePropsData.findIndex(p => p.date==="5/26/2019");
+        myIndex = thePropsData.findIndex(p => p.date===myDate);
         console.log(myIndex);
 
         while (day <= endDate) {
