@@ -231,6 +231,14 @@ main {
     width: calc(100%/7);
 }
 
+/*
+.calendar .body .col {
+    flex-grow: 1;
+    flex-basis: auto;
+    width: auto;
+}
+*/
+
 .calendar .body .row .cell .container {
     margin: 0;
     padding: 0;
