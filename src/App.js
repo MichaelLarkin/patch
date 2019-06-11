@@ -13,7 +13,6 @@ class App extends Component {
         this.state = {
             sideDrawerOpen: false,
             summary: [],
-            details: [],
             isLoaded: false
         };
     }
@@ -36,15 +35,6 @@ class App extends Component {
                this.setState( { summary: data });
             })
             .catch( error => { console.log("Summary request failed.", error)});
-
-        fetch("http://localhost:3000/detail")
-            .then ( status )
-            .then ( json )
-            .then( data => {
-                /* console.log("Request succeeded: Detail JSON response received.", data) */
-                this.setState( { detail: data } );
-            })
-            .catch( error => { console.log("Detail request failed.", error)})
    }
 
     drawerToggleClickHandler = () => {
@@ -73,7 +63,7 @@ class App extends Component {
                     {backdrop}
                     <main style={{marginTop: '64px'}}>
                         <SideDrawer show={this.state.sideDrawerOpen} />
-                        <Calendar data={this.state.summary} />
+                        <Calendar data={this.state.summary}/>
                     </main>
                 </div>
             </div>

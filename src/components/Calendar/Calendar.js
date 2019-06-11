@@ -2,9 +2,13 @@ import React from "react";
 import dateFns from "date-fns";
 
 import './Calendar.css';
-import Row from "reactstrap/es/Col";
-import Container from "react-bootstrap/es/Container";
+import Row from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Detail from '../Detail/Detail';
 
+
+let selectedDateIndex = -1;
+let deployArray = [];
 
 class Calendar extends React.Component {
 
@@ -76,20 +80,16 @@ class Calendar extends React.Component {
             </div>
         }
 
-        console.log(thePropsData);
-        console.log(Array.isArray(thePropsData));
+        let startDateFormatted = dateFns.format(startDate, "MM/DD/YYYY");
+        let startDateIndex = thePropsData.findIndex(p => p.date===startDateFormatted);
+        let dayIndex = startDateIndex;
 
-        let myDate = "";
-        myDate = dateFns.format(day, "MM/DD/YYYY");
-        console.log(myDate);
+        let selectedDateFormatted = dateFns.format(selectedDate, "MM/DD/YYYY");
+        selectedDateIndex = thePropsData.findIndex(p => p.date===selectedDateFormatted);
 
-        let myIndex = ""
-        myIndex = thePropsData.findIndex(p => p.date===myDate);
-        console.log(myIndex);
+        deployArray = thePropsData;
 
         while (day <= endDate) {
-            console.log (day);
-
             for (let i = 0; i < 7; i++) {
                 formattedDate = dateFns.format(day, dateFormat);
                 const cloneDay = day;
@@ -106,18 +106,16 @@ class Calendar extends React.Component {
                         <div className="number">{formattedDate}</div>
                         <div className="bg">{formattedDate}</div>
                         <Container>
-                            <Row>P:{thePropsData[myIndex].prod}</Row>
-                            <Row>U:{thePropsData[myIndex].uat}</Row>
-                            <Row>Q:{thePropsData[myIndex].qa}</Row>
-                            <Row>T:{thePropsData[myIndex].test}</Row>
-                            <Row>D:{thePropsData[myIndex].dev}</Row>
+                            <Row>P:{thePropsData[dayIndex].prod}</Row>
+                            <Row>U:{thePropsData[dayIndex].uat}</Row>
+                            <Row>Q:{thePropsData[dayIndex].qa}</Row>
+                            <Row>T:{thePropsData[dayIndex].test}</Row>
+                            <Row>D:{thePropsData[dayIndex].dev}</Row>
                         </Container>
-
                     </div>
                 );
                 day = dateFns.addDays(day, 1);
-                myIndex = myIndex+ 1;
-                console.log(myIndex);
+                dayIndex = dayIndex + 1;
             }
             rows.push(
                 <div className="row" key={day}>
@@ -126,6 +124,7 @@ class Calendar extends React.Component {
             );
             days = [];
         }
+
         return <div className="body">{rows}</div>;
     }
 
@@ -153,6 +152,8 @@ class Calendar extends React.Component {
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
+                <Detail startDateIndex={selectedDateIndex}
+                        endDateIndex={selectedDateIndex} />
             </div>
         );
     }
