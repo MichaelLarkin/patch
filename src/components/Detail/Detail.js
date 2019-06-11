@@ -46,9 +46,15 @@ class Detail extends React.Component {
        console.log("endDateIndex: ", this.state.endDateIndex);
        console.log("detail: ", this.state.detail);
 
+       let selectedDetail = this.state.detail[this.state.startDate];
+
+       console.log("selectedDetail: ", selectedDetail);
+
        return (
             <div className="detailDiv">
-                <h1>Hi!</h1>
+                <h1>"startDateIndex: " {this.state.startDateIndex}</h1>
+                <h1>"endDateIndex: " {this.state.endDateIndex}</h1>
+                <h1>"selectedDetail: " {selectedDetail}</h1>
             </div>
         );
     }
