@@ -6,9 +6,7 @@ import Row from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Detail from '../Detail/Detail';
 
-
 let selectedDateIndex = -1;
-let deployArray = [];
 
 class Calendar extends React.Component {
 
@@ -87,8 +85,6 @@ class Calendar extends React.Component {
         let selectedDateFormatted = dateFns.format(selectedDate, "MM/DD/YYYY");
         selectedDateIndex = thePropsData.findIndex(p => p.date===selectedDateFormatted);
 
-        deployArray = thePropsData;
-
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
                 formattedDate = dateFns.format(day, dateFormat);
@@ -147,6 +143,7 @@ class Calendar extends React.Component {
     };
 
     render() {
+
         return (
             <div className="calendar container-fluid">
                 {this.renderHeader()}
