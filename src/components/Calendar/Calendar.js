@@ -6,16 +6,43 @@ import Row from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Detail from '../Detail/Detail';
 
-let selectedDateIndex = -1;
 
 class Calendar extends React.Component {
 
     constructor(props) {
         super(props);
+
+        let today = new Date();
+        let firstDayOfTheYear = new Date(today.getFullYear(),0,1);
+        let dayOfTheYear = Math.ceil((today - firstDayOfTheYear) / 86400000) -1;
+
         this.state = {
             currentMonth: new Date(),
-            selectedDate: new Date()
+            selectedDate: new Date(),
+            selectedDateIndex: dayOfTheYear,
+            selectedData: {}
         };
+    }
+
+    componentDidMount() {
+
+        const status = response => {
+            if (response.status >= 200 && response.status < 300) {
+                return Promise.resolve(response) }
+            return Promise.reject(new Error(response.statusText))
+        };
+
+        const json = response => response.json();
+
+        const fetchFrom = "http://localhost:3000/detail/".concat(this.state.selectedDateIndex);
+
+        fetch(fetchFrom)
+            .then ( status )
+            .then ( json )
+            .then( data => {
+                this.setState( { selectedData: data } );
+            })
+            .catch( error => { console.log("Detail request failed.", error)});
     }
 
     renderHeader() {
@@ -57,6 +84,10 @@ class Calendar extends React.Component {
 
 
     renderCells() {
+        if (!this.props.data || !this.props.data.length) {
+            return null
+        }
+
         const {currentMonth, selectedDate} = this.state;
         const monthStart = dateFns.startOfMonth(currentMonth);
         const monthEnd = dateFns.endOfMonth(monthStart);
@@ -70,20 +101,14 @@ class Calendar extends React.Component {
         let day = startDate;
         let formattedDate = "";
 
-        let thePropsData  = this.props.data.summary;
+        let thePropsData =  this.props.data;
 
-        if  (!thePropsData) {
-            return <div>
-                <h1>Awaiting Arrival of Asynchronous Data...</h1>
-            </div>
+        if (!thePropsData) {
+            return (<div><h3>Loading Calendar...</h3></div>)
         }
 
-        let startDateFormatted = dateFns.format(startDate, "MM/DD/YYYY");
-        let startDateIndex = thePropsData.findIndex(p => p.date===startDateFormatted);
-        let dayIndex = startDateIndex;
-
-        let selectedDateFormatted = dateFns.format(selectedDate, "MM/DD/YYYY");
-        selectedDateIndex = thePropsData.findIndex(p => p.date===selectedDateFormatted);
+        let formattedStartDate = dateFns.format(startDate, "MM/DD/YYYY");
+        let dayIndex = thePropsData.findIndex(p => p.date===formattedStartDate);
 
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
@@ -125,7 +150,7 @@ class Calendar extends React.Component {
     }
 
     onDateClick = day => {
-        this.setState({
+       this.setState({
             selectedDate: day
         });
     };
@@ -143,14 +168,15 @@ class Calendar extends React.Component {
     };
 
     render() {
-
+        console.log(this.state.selectedData);
         return (
-            <div className="calendar container-fluid">
-                {this.renderHeader()}
-                {this.renderDays()}
-                {this.renderCells()}
-                <Detail startDateIndex={selectedDateIndex}
-                        endDateIndex={selectedDateIndex} />
+            <div>
+                <div className="calendar container-fluid">
+                    {this.renderHeader()}
+                    {this.renderDays()}
+                    {this.renderCells()}
+                </div>
+                <Detail className="detailDiv" selectedData={this.state.selectedData} />
             </div>
         );
     }
