@@ -20,7 +20,7 @@ class Calendar extends React.Component {
             currentMonth: new Date(),
             selectedDate: new Date(),
             selectedDateIndex: dayOfTheYear,
-            selectedData: {}
+            selectedData: []
         };
     }
 
@@ -40,7 +40,14 @@ class Calendar extends React.Component {
             .then ( status )
             .then ( json )
             .then( data => {
-                this.setState( { selectedData: data } );
+                let theData = [];
+                if (Array.isArray(data)) {
+                    theData = data;
+                }
+                else {
+                    theData.push(data);
+                }
+                this.setState( { selectedData: theData } );
             })
             .catch( error => { console.log("Detail request failed.", error)});
     }
@@ -168,7 +175,7 @@ class Calendar extends React.Component {
     };
 
     render() {
-        console.log(this.state.selectedData);
+        console.log("Calender - render(): ",this.state.selectedData);
         return (
             <div>
                 <div className="calendar container-fluid">
