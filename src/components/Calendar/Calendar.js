@@ -178,7 +178,7 @@ class Calendar extends React.Component {
         console.log("Calender - render(): ",this.state.selectedData);
         return (
             <div>
-                <div className="calendar container-fluid">
+                <div className="calendar">
                     {this.renderHeader()}
                     {this.renderDays()}
                     {this.renderCells()}
