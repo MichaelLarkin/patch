@@ -9,47 +9,23 @@ import Detail from '../Detail/Detail';
 
 class Calendar extends React.Component {
 
+    static today = new Date();
+    static firstDayOfTheYear = new Date(Calendar.today.getFullYear(),0,1);
+    static dayOfTheYear = Math.ceil((Calendar.today - Calendar.firstDayOfTheYear) / 86400000) -1;
+
     constructor(props) {
         super(props);
-
-        let today = new Date();
-        let firstDayOfTheYear = new Date(today.getFullYear(),0,1);
-        let dayOfTheYear = Math.ceil((today - firstDayOfTheYear) / 86400000) -1;
 
         this.state = {
             currentMonth: new Date(),
             selectedDate: new Date(),
-            selectedDateIndex: dayOfTheYear,
+            selectedDateIndex: Calendar.dayOfTheYear,
             selectedData: []
         };
     }
 
     componentDidMount() {
-
-        const status = response => {
-            if (response.status >= 200 && response.status < 300) {
-                return Promise.resolve(response) }
-            return Promise.reject(new Error(response.statusText))
-        };
-
-        const json = response => response.json();
-
-        const fetchFrom = "http://localhost:3000/detail/".concat(this.state.selectedDateIndex);
-
-        fetch(fetchFrom)
-            .then ( status )
-            .then ( json )
-            .then( data => {
-                let theData = [];
-                if (Array.isArray(data)) {
-                    theData = data;
-                }
-                else {
-                    theData.push(data);
-                }
-                this.setState( { selectedData: theData } );
-            })
-            .catch( error => { console.log("Detail request failed.", error)});
+        this.fetchSelectedData();
     }
 
     renderHeader() {
@@ -156,10 +132,43 @@ class Calendar extends React.Component {
         return <div className="body">{rows}</div>;
     }
 
+    fetchSelectedData() {
+        const status = response => {
+            if (response.status >= 200 && response.status < 300) {
+                return Promise.resolve(response) }
+            return Promise.reject(new Error(response.statusText))
+        };
+
+        const json = response => response.json();
+
+        const fetchFrom = "http://localhost:3000/detail/".concat(this.state.selectedDateIndex);
+
+        fetch(fetchFrom)
+            .then ( status )
+            .then ( json )
+            .then( data => {
+                let theData = [];
+                if (Array.isArray(data)) {
+                    theData = data;
+                }
+                else {
+                    theData.push(data);
+                }
+                this.setState( { selectedData: theData } );
+            })
+            .catch( error => { console.log("Detail request failed.", error)});
+    }
+
     onDateClick = day => {
-       this.setState({
-            selectedDate: day
+        this.setState({
+            selectedDate: day,
+            selectedDateIndex : Math.ceil((day - Calendar.firstDayOfTheYear) / 86400000),
+            selectedData: this.fetchSelectedData()
         });
+        console.log("selectedDate", day);
+        console.log("selectedDateIndex: ", this.state.selectedDateIndex);
+        console.log("selectedData: ", this.state.selectedData);
+
     };
 
     nextMonth = () => {
@@ -175,7 +184,6 @@ class Calendar extends React.Component {
     };
 
     render() {
-        console.log("Calender - render(): ",this.state.selectedData);
         return (
             <div>
                 <div className="calendar">

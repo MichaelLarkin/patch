@@ -42,10 +42,7 @@
 
 body {
     font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
     line-height: 1.5;
-    color: var(--text-color);
     background: var(--bg-color);
     position: relative;
 }
@@ -53,7 +50,6 @@ body {
 header {
     display: block;
     width: 100%;
-    padding: 1.75em 0;
     border-bottom: 1px solid var(--border-color);
     background: var(--neutral-color);
 }
@@ -69,28 +65,15 @@ header #logo .icon {
     padding-right: .25em;
 }
 
-main {
-    display: flex;              /* was display: block; */
-    margin: 2em;                /* was margin: 0 auto; */
-                                /* was margin-top: 5em; */
-    max-width: 100%;            /* was 50 em */
-    max-height: 100%;           /* was not here */
-}
-
-
 /* GRID */
 
 .row {
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
-    flex-grow: 1;                       /* was not here */
-    flex-basis: auto;                   /* was not here */
-    max-width: 100%;                    /* was not here */
-    max-height: 100%;                   /* was not here */
+    flex-grow: 1;
+    flex-basis: auto;
+    margin: 0;
 }
 
 .row-middle {
@@ -101,8 +84,7 @@ main {
     flex-grow: 1;
     flex-basis: 0;
     max-width: 100%;
-    padding-top: 1%;                    /* was not here - controls aspect ratio */
-    padding-bottom: 1%;                 /* was not here - controls aspect ratio */
+    padding-top: 1%;
 }
 
 .col-start {
@@ -126,8 +108,8 @@ main {
 .calendar {
     display: inline;
     position: relative;
-    width: 1vw;                                     /* was 100% */
-    height: 1vh;                                    /* was 100% */
+    width: 1vw;
+    height: 1vh;
     background: var(--neutral-color);
     border: 1px solid var(--border-color);
 }
@@ -136,7 +118,7 @@ main {
     text-transform: uppercase;
     font-weight: 700;
     font-size: 115%;
-    margin: 0 0 0 0;                              /* was margin: 1em 0 0 0 */
+    margin: 0 0 0 0;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -164,14 +146,13 @@ main {
     font-weight: 400;
     color: var(--text-color-light);
     font-size: 70%;
-    padding: .75em 0;
     border-bottom: 1px solid var(--border-color);
 }
 
 .calendar .body .cell {
     position: relative;
-    height: auto;                                   /* was height: 5em; */
-    width: auto;                                    /* was not here */
+    height: auto;
+    width: auto;
     border-right: 1px solid var(--border-color);
     overflow: hidden;
     cursor: pointer;
@@ -235,7 +216,7 @@ main {
 }
 
 .calendar .body .col {
-    flex-grow: 1;                               /* was flex-grow: 0; */
+    flex-grow: 1;
     flex-basis: calc(100%/7);
     width: calc(100%/7)
 }
@@ -245,7 +226,7 @@ main {
     padding: 0;
 }
 .calendar .body .row .cell .container .col {
-    font-size: x-small;
+    font-size: 1vw;
     margin: 0;
     padding: 0;
 }
