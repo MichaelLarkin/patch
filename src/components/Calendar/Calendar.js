@@ -20,7 +20,8 @@ class Calendar extends React.Component {
             currentMonth: new Date(),
             selectedDate: new Date(),
             selectedDateIndex: Calendar.dayOfTheYear,
-            selectedData: []
+            selectedData: [],
+            renderSelectedData: true
         };
     }
 
@@ -163,7 +164,8 @@ class Calendar extends React.Component {
         this.setState({
             selectedDate: day,
             selectedDateIndex : Math.ceil((day - Calendar.firstDayOfTheYear) / 86400000),
-            selectedData: this.fetchSelectedData()
+            selectedData: this.fetchSelectedData(),
+            renderSelectedData: true
         });
         console.log("selectedDate", day);
         console.log("selectedDateIndex: ", this.state.selectedDateIndex);
@@ -184,14 +186,20 @@ class Calendar extends React.Component {
     };
 
     render() {
-        return (
+       return (
             <div>
-                <div className="calendar">
-                    {this.renderHeader()}
-                    {this.renderDays()}
-                    {this.renderCells()}
-                </div>
-                <Detail className="detailDiv" selectedData={this.state.selectedData} />
+                { this.state.renderSelectedData ?
+                    <div className="calendar">
+                        {this.renderHeader()}
+                        {this.renderDays()}
+                        {this.renderCells()}
+                    </div>
+                    : null
+                }
+                { this.state.renderSelectedData ?
+                    <Detail className="detailDiv" selectedData={this.state.selectedData}/>
+                    : null
+                }
             </div>
         );
     }
