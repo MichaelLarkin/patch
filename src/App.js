@@ -56,11 +56,11 @@ class App extends Component {
 
         return (
             <div className="App">
-                <div style={{height: '100%'}}>
+                <div>
                     <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
                     <SideDrawer show={this.state.sideDrawerOpen}  />
                     {backdrop}
-                    <main style={{marginTop: '64px'}}>
+                    <main>
                         <SideDrawer show={this.state.sideDrawerOpen} />
                         <Calendar data={this.state.summary}/>
                     </main>
