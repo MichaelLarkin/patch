@@ -10,6 +10,13 @@ const toolbar = props => (
                 <DrawToggleButton click={props.drawerClickHandler} />
             </div>
             <div className="toolbar__logo"> <a href="/">Bed Bath & Beyond</a></div>
+            <div className="spacer"></div>
+            <div  className="toolbar__navigation-items">
+                <ul>
+                    <li>Calender</li>
+                    <li>Details</li>
+                </ul>
+            </div>
         </nav>
     </header>
 );

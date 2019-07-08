@@ -25,7 +25,7 @@
 }
 
 .spacer {
-    width: 50px;
+    width: 50%;
 }
 
 .toolbar__navigation-items ul {
@@ -33,7 +33,6 @@
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: flex-start;
 }
 
 .toolbar__navigation-items li {
@@ -41,6 +40,8 @@
     margin: 0;
     margin-right: 2em;
     font-size: smaller;
+    color: white;
+    text-decoration: none;
 }
 
 .toolbar__navigation-items a {
@@ -48,9 +49,10 @@
     text-decoration: none;
 }
 
-.toolbar__navigation-items a:hover,
-.toolbar__navigation-items a:active {
+.toolbar__navigation-items li:hover,
+.toolbar__navigation-items li:active {
     color: #fa923f;
+    cursor: pointer;
 }
 
 .search__input {
