@@ -133,7 +133,7 @@ class Calendar extends React.Component {
         return <div className="body">{rows}</div>;
     }
 
-    fetchSelectedData(selectedDateIndex) {
+    fetchSelectedData(selectedDate, selectedDateIndex) {
         const status = response => {
             if (response.status >= 200 && response.status < 300) {
                 return Promise.resolve(response) }
@@ -142,6 +142,7 @@ class Calendar extends React.Component {
 
         const json = response => response.json();
 
+        if (!selectedDate) { selectedDate = this.state.selectedDate }
         if (!selectedDateIndex) { selectedDateIndex = this.state.selectedDateIndex };
 
         const fetchFrom = "http://localhost:3000/detail/".concat(selectedDateIndex);
@@ -157,7 +158,8 @@ class Calendar extends React.Component {
                 else {
                     theData.push(data);
                 }
-                this.setState( { selectedDateIndex: selectedDateIndex,
+                this.setState( { selectedDate: selectedDate,
+                                      selectedDateIndex: selectedDateIndex,
                                       selectedData: theData } );
             })
             .catch( error => { console.log("Detail request failed.", error)});
@@ -165,8 +167,7 @@ class Calendar extends React.Component {
 
     onDateClick = day => {
         let selectedDateIndex = Math.ceil((day - Calendar.firstDayOfTheYear) / 86400000);
-        console.log("selectedDateIndex: ", selectedDateIndex);
-        this.fetchSelectedData(selectedDateIndex);
+        this.fetchSelectedData(day, selectedDateIndex);
     };
 
     nextMonth = () => {
