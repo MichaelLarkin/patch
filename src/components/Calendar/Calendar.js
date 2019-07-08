@@ -11,7 +11,7 @@ class Calendar extends React.Component {
 
     static today = new Date();
     static firstDayOfTheYear = new Date(Calendar.today.getFullYear(),0,1);
-    static dayOfTheYear = Math.ceil((Calendar.today - Calendar.firstDayOfTheYear) / 86400000) -1;
+    static dayOfTheYear = Math.ceil((Calendar.today - Calendar.firstDayOfTheYear) / 86400000) - 1;
 
     constructor(props) {
         super(props);
@@ -133,7 +133,7 @@ class Calendar extends React.Component {
         return <div className="body">{rows}</div>;
     }
 
-    fetchSelectedData() {
+    fetchSelectedData(selectedDateIndex) {
         const status = response => {
             if (response.status >= 200 && response.status < 300) {
                 return Promise.resolve(response) }
@@ -142,7 +142,9 @@ class Calendar extends React.Component {
 
         const json = response => response.json();
 
-        const fetchFrom = "http://localhost:3000/detail/".concat(this.state.selectedDateIndex);
+        if (!selectedDateIndex) { selectedDateIndex = this.state.selectedDateIndex };
+
+        const fetchFrom = "http://localhost:3000/detail/".concat(selectedDateIndex);
 
         fetch(fetchFrom)
             .then ( status )
@@ -155,22 +157,16 @@ class Calendar extends React.Component {
                 else {
                     theData.push(data);
                 }
-                this.setState( { selectedData: theData } );
+                this.setState( { selectedDateIndex: selectedDateIndex,
+                                      selectedData: theData } );
             })
             .catch( error => { console.log("Detail request failed.", error)});
     }
 
     onDateClick = day => {
-        this.setState({
-            selectedDate: day,
-            selectedDateIndex : Math.ceil((day - Calendar.firstDayOfTheYear) / 86400000),
-            selectedData: this.fetchSelectedData(),
-            renderSelectedData: true
-        });
-        console.log("selectedDate", day);
-        console.log("selectedDateIndex: ", this.state.selectedDateIndex);
-        console.log("selectedData: ", this.state.selectedData);
-
+        let selectedDateIndex = Math.ceil((day - Calendar.firstDayOfTheYear) / 86400000);
+        console.log("selectedDateIndex: ", selectedDateIndex);
+        this.fetchSelectedData(selectedDateIndex);
     };
 
     nextMonth = () => {
