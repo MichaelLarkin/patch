@@ -47,24 +47,20 @@ class App extends Component {
     };
 
     render() {
-
         let backdrop;
-        // let sideDrawer;
         if (this.state.sideDrawerOpen) {
             backdrop = <Backdrop click={this.backdropClickHandler} />;
         }
 
         return (
             <div className="App">
-                <div>
+                <main>
                     <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
                     <SideDrawer show={this.state.sideDrawerOpen}  />
                     {backdrop}
-                    <main>
-                        <SideDrawer show={this.state.sideDrawerOpen} />
-                        <Calendar data={this.state.summary}/>
+                    <Calendar data={this.state.summary}/>
                     </main>
-                </div>
+
             </div>
         );
     }
