@@ -49,12 +49,11 @@ class FormContainer extends Component {
             newSelectionArray = [...oldSelectionArray, newSelection];
         }
 
-        this.setState({[e.target.id]: newSelectionArray});
-
-    }
+        this.setState({[e.target.id]: newSelectionArray},
+            () => {this.props.onFilterChange(this.state)});
+    };
 
     render() {
-        console.log("render - this.state: ", this.state);
         return (
             <form className="container">
                 <Checkbox title='Data Center'

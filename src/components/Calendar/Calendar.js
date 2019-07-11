@@ -25,10 +25,6 @@ class Calendar extends React.Component {
         };
     }
 
-    componentDidMount() {
-        this.fetchSelectedData();
-    }
-
     renderHeader() {
         const dateFormat = "MMMM YYYY";
 

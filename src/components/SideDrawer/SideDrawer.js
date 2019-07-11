@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import FormContainer from '../Filter/FormContainer';
 import './SideDrawer.css';
 
+class sideDrawer extends Component {
 
-const sideDrawer = props => {
-    let drawerClasses = 'side-drawer';
-    if (props.show) {
-        drawerClasses = 'side-drawer open';
+    constructor(props) {
+        super(props);
     }
-    return (
-        <nav className={drawerClasses}>
-            <FormContainer />
-        </nav>);
-};
+
+    handleFilterChange = (filterState) => {
+        this.props.onFilterChange(filterState);
+    };
+
+    render() {
+        let drawerClasses = 'side-drawer';
+        if (this.props.show) {
+            drawerClasses = 'side-drawer open';
+        }
+        return (
+            <nav className={drawerClasses}>
+                <FormContainer onFilterChange={this.handleFilterChange} />
+            </nav>);
+    };
+}
 
 export default sideDrawer;

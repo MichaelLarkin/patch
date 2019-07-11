@@ -4,6 +4,7 @@ import Toolbar from './components/Toolbar/Toolbar'
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop';
 import Calendar from './components/Calendar/Calendar';
+import FormContainer from "./components/Filter/FormContainer";
 
 
 class App extends Component {
@@ -46,6 +47,10 @@ class App extends Component {
         this.setState({sideDrawerOpen: false});
     };
 
+    handleFilterChange = (filterState) => {
+        console.log("App - handleFilterChange- filterState: ", filterState);
+    };
+
     render() {
         let backdrop;
         if (this.state.sideDrawerOpen) {
@@ -56,9 +61,9 @@ class App extends Component {
             <div className="App">
                 <main>
                     <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
-                    <SideDrawer show={this.state.sideDrawerOpen}  />
+                    <SideDrawer show={this.state.sideDrawerOpen} onFilterChange={this.handleFilterChange} />
                     {backdrop}
-                    <Calendar data={this.state.summary}/>
+                    <Calendar data={this.state.summary} />
                     </main>
 
             </div>
