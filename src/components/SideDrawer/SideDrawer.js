@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Filter from '../Filter/Filter';
+import FormContainer from '../Filter/FormContainer';
 import './SideDrawer.css';
 
 
@@ -11,7 +11,7 @@ const sideDrawer = props => {
     }
     return (
         <nav className={drawerClasses}>
-            <Filter />
+            <FormContainer />
         </nav>);
 };
 

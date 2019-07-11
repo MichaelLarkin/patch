@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 import './Filter.css';
 
-export default class Filter extends Component {
+class Filter extends Component {
     render() {
         return (
         <div className="filter__div">
@@ -47,3 +47,5 @@ export default class Filter extends Component {
         );
     }
 }
+
+export default Filter;
