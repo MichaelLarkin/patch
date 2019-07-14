@@ -7,25 +7,14 @@ class CheckBox extends Component {
     }
 
      render() {
-/*
-        if ( !this.props ||
-             !this.props.name ||
-             !this.props.handleChange ||
-             !this.props.selectedOptions )  {
-                return (
-                    <div>
-                        "No props!"
-                    </div>
-                )
-         }
-*/
         return (
             <div>
-                <label htmlFor={this.props.name} className="form-label">{this.props.title}</label>
+                <label htmlFor={this.props.name} className="form-label"
+                       style={{textDecoration: 'underline'}}>{this.props.title}</label>
                 <div className="checkbox-group">
                     {this.props.options.map(option => {
                         return (
-                            <label key={option}>
+                            <label key={option} style={{padding: '0.25em'}}>
                                 <input
                                     className="form-checkbox"
                                     id={this.props.name}

@@ -11,6 +11,7 @@ class sideDrawer extends Component {
 
     handleFilterChange = (filterState) => {
         this.props.onFilterChange(filterState);
+        console.log("SideDrawer - handleFilterChange - filterState: ", filterState);
     };
 
     render() {

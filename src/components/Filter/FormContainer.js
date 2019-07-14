@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Checkbox from './Checkbox';
+import './FormContainer.css';
 
 class FormContainer extends Component {
     constructor(props) {
@@ -49,13 +50,17 @@ class FormContainer extends Component {
             newSelectionArray = [...oldSelectionArray, newSelection];
         }
 
-        this.setState({[e.target.id]: newSelectionArray},
-            () => {this.props.onFilterChange(this.state)});
+        this.setState({[e.target.id]: newSelectionArray});
+    };
+
+    handleFormSubmit = (e) => {
+        this.props.onFilterChange(this.state);
+        e.preventDefault();
     };
 
     render() {
         return (
-            <form className="container">
+            <form className="filter-form" onSubmit={this.handleFormSubmit}>
                 <Checkbox title='Data Center'
                           name='dataCenters'
                           options={ ['Claremont', 'Datapipe', 'Google', 'Union'] }
@@ -79,13 +84,14 @@ class FormContainer extends Component {
                                         options={ ['Physical', 'Virtual'] }
                                         selectedOptions={this.state.operatingSystemTypes}
                                         handleChange={this.handleCheckBox}
-            />
+                />
                 <Checkbox title='Operating Systems'
                           name='operatingSystems'
                           options={ ['Linux', 'Unix', 'Windows'] }
                           selectedOptions={this.state.operatingSystems}
                           handleChange={this.handleCheckBox}
                 />
+                <button className="btn btn-default" type="submit">Change Filter Settings</button>
             </form>
         );
     };

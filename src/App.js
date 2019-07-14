@@ -17,8 +17,7 @@ class App extends Component {
         };
     }
 
-    componentDidMount() {
-
+    fetchSummaryData = () => {
         const status = response => {
             if (response.status >= 200 && response.status < 300) {
                 return Promise.resolve(response) }
@@ -31,11 +30,15 @@ class App extends Component {
             .then ( status )
             .then ( json )
             .then( data => {
-               /* console.log("Request succeeded: Summary JSON response received.", data) */
-               this.setState( { summary: data });
+                /* console.log("Request succeeded: Summary JSON response received.", data) */
+                this.setState( { summary: data });
             })
             .catch( error => { console.log("Summary request failed.", error)});
-   }
+    };
+
+    componentDidMount() {
+        this.fetchSummaryData();
+    }
 
     drawerToggleClickHandler = () => {
         this.setState((prevState) => {
