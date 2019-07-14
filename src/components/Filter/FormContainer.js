@@ -91,7 +91,10 @@ class FormContainer extends Component {
                           selectedOptions={this.state.operatingSystems}
                           handleChange={this.handleCheckBox}
                 />
-                <button className="btn btn-default" type="submit">Change Filter Settings</button>
+                <button className="btn btn-default" type="submit"
+                        style={{border: '2px solid black',
+                                color: 'white',
+                                background: 'green'}}>Change Filter Settings</button>
             </form>
         );
     };
