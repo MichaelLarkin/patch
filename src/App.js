@@ -13,6 +13,8 @@ class App extends Component {
         super(props);
         this.state = {
             sideDrawerOpen: false,
+            renderCalender: true,
+            renderDetails: true,
             summary: []
         };
     }
@@ -54,7 +56,22 @@ class App extends Component {
         console.log("App - handleFilterChange- filterState: ", filterState);
     };
 
+    handleCalenderClick = props => {
+        console.log("App - handleCalendarClick BEFORE: this.state.renderCalendar = ", this.state.renderCalender);
+        let visibleCalender = this.state.renderCalender;
+        this.setState({renderCalender: !visibleCalender});
+        console.log("App - handleCalendarClick AFTER: this.state.renderCalendar = ", this.state.renderCalender);
+    };
+
+    handleDetailsClick = props => {
+        let visibleDetails = this.state.renderDetails;
+        this.setState({renderDetails: !visibleDetails});
+        console.log("App - handleDetailsClick: this.state.renderDetails = ", this.state.renderDetails);
+    };
+
     render() {
+        console.log("App - render: this.state.renderCalendar = ", this.state.renderCalender);
+
         let backdrop;
         if (this.state.sideDrawerOpen) {
             backdrop = <Backdrop click={this.backdropClickHandler} />;
@@ -63,12 +80,16 @@ class App extends Component {
         return (
             <div className="App">
                 <main>
-                    <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
-                    <SideDrawer show={this.state.sideDrawerOpen} onFilterChange={this.handleFilterChange} />
+                    <Toolbar drawerClickHandler={this.drawerToggleClickHandler}
+                             handleCalenderClick={this.handleCalenderClick}
+                             handleDetailsClick={this.handleDetailsClick} />
+                    <SideDrawer show={this.state.sideDrawerOpen}
+                                onFilterChange={this.handleFilterChange} />
                     {backdrop}
-                    <Calendar data={this.state.summary} />
-                    </main>
-
+                    <Calendar renderCalender={this.state.renderCalender}
+                              renderDetails={this.state.renderDetails}
+                              data={this.state.summary} />
+                </main>
             </div>
         );
     }

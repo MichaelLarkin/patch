@@ -21,7 +21,8 @@ class Calendar extends React.Component {
             selectedDate: new Date(),
             selectedDateIndex: Calendar.dayOfTheYear,
             selectedData: [],
-            renderSelectedData: true
+            renderCalender: this.props.renderCalender,
+            renderDetails: this.props.renderDetails
         };
     }
 
@@ -179,9 +180,12 @@ class Calendar extends React.Component {
     };
 
     render() {
-       return (
+        console.log("Calendar -- render: this.props.renderCalendar = ", this.props.renderCalender);
+        console.log("Calendar -- render: this.props.renderDetails = ", this.props.renderDetails);
+
+        return (
             <div>
-                { this.state.renderSelectedData ?
+                { this.props.renderCalender ?
                     <div className="calendar">
                         {this.renderHeader()}
                         {this.renderDays()}
@@ -189,7 +193,7 @@ class Calendar extends React.Component {
                     </div>
                     : null
                 }
-                { this.state.renderSelectedData ?
+                { this.props.renderDetails ?
                     <Detail className="detailDiv" selectedData={this.state.selectedData}/>
                     : null
                 }
