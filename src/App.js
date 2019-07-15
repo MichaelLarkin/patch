@@ -4,7 +4,6 @@ import Toolbar from './components/Toolbar/Toolbar'
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import Backdrop from './components/Backdrop/Backdrop';
 import Calendar from './components/Calendar/Calendar';
-import FormContainer from "./components/Filter/FormContainer";
 
 
 class App extends Component {
@@ -57,21 +56,16 @@ class App extends Component {
     };
 
     handleCalenderClick = props => {
-        console.log("App - handleCalendarClick BEFORE: this.state.renderCalendar = ", this.state.renderCalender);
         let visibleCalender = this.state.renderCalender;
         this.setState({renderCalender: !visibleCalender});
-        console.log("App - handleCalendarClick AFTER: this.state.renderCalendar = ", this.state.renderCalender);
     };
 
     handleDetailsClick = props => {
         let visibleDetails = this.state.renderDetails;
         this.setState({renderDetails: !visibleDetails});
-        console.log("App - handleDetailsClick: this.state.renderDetails = ", this.state.renderDetails);
     };
 
     render() {
-        console.log("App - render: this.state.renderCalendar = ", this.state.renderCalender);
-
         let backdrop;
         if (this.state.sideDrawerOpen) {
             backdrop = <Backdrop click={this.backdropClickHandler} />;
