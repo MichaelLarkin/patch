@@ -5,10 +5,6 @@ import './SideDrawer.css';
 
 class sideDrawer extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     handleFilterChange = (filterState) => {
         this.props.onFilterChange(filterState);
         console.log("SideDrawer - handleFilterChange - filterState: ", filterState);
