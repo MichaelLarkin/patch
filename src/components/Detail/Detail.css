@@ -2,10 +2,3 @@
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
-
-/* Detail */
-
-.detailDiv {
-    display: flex;
-    flex-direction: column;
-}

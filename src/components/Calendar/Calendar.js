@@ -67,6 +67,8 @@ class Calendar extends React.Component {
             return null
         }
 
+        console.log("Calendar -- renderCells: filterState = ", this.props.filterState);
+
         const {currentMonth, selectedDate} = this.state;
         const monthStart = dateFns.startOfMonth(currentMonth);
         const monthEnd = dateFns.endOfMonth(monthStart);
@@ -186,10 +188,10 @@ class Calendar extends React.Component {
                         {this.renderDays()}
                         {this.renderCells()}
                     </div>
-                    : null
+                    : <div className="move-down-details">DETAILS PAGE - CLICK CALENDAR TO DISPLAY CALENDAR</div>
                 }
                 { this.props.renderDetails ?
-                    <Detail className="detailDiv" selectedData={this.state.selectedData}/>
+                    <Detail selectedData={this.state.selectedData}/>
                     : null
                 }
             </div>

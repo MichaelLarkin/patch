@@ -14,6 +14,7 @@ class App extends Component {
             sideDrawerOpen: false,
             renderCalender: true,
             renderDetails: true,
+            filterState: {},
             summary: []
         };
     }
@@ -53,6 +54,7 @@ class App extends Component {
 
     handleFilterChange = (filterState) => {
         console.log("App - handleFilterChange- filterState: ", filterState);
+        this.setState({filterState: filterState});
     };
 
     handleCalenderClick = props => {
@@ -82,6 +84,7 @@ class App extends Component {
                     {backdrop}
                     <Calendar renderCalender={this.state.renderCalender}
                               renderDetails={this.state.renderDetails}
+                              filterState={this.state.filterState}
                               data={this.state.summary} />
                 </main>
             </div>

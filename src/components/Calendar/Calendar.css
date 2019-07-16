@@ -231,3 +231,7 @@ header #logo .icon {
     padding: 0;
 }
 
+.move-down-details {
+    margin-top: 40px;
+    padding: 10px;
+}
